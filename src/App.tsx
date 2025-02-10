@@ -44,14 +44,14 @@ function App() {
     <>
       <Navbar />
       <Notification text="Apenas números" active={showNotification} />
-      <main className="w-full h-screen bg-zinc-200 flex flex-col gap-y-10 justify-center items-center font-poppins">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-y-5 md:gap-x-5">
-          <div className="bg-zinc-200  h-[7.5em] w-[15em] flex flex-col justify-center items-center drop-shadow-xl rounded-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
+      <main className="flex flex-col items-center justify-center w-full h-screen bg-zinc-200 gap-y-10 font-poppins">
+        <div className="flex flex-col items-center justify-center gap-y-5 md:flex-row md:gap-x-5">
+          <div className="flex flex-col items-center justify-center w-[15em] h-[7.5em] bg-zinc-200 rounded-xl drop-shadow-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
             <h1 className="text-lg font-medium mb-1">
               {mode ? "Binário" : "Decimal"}
             </h1>
             <input
-              className="border border-zinc-900 p-1 text-center rounded-2xl px-2 outline-zinc-900"
+              className="p-1 text-center border border-zinc-900 rounded-2xl px-2 outline-zinc-900"
               value={number}
               onChange={handleChange}
               type="text"
@@ -71,12 +71,12 @@ function App() {
             Trocar
           </button>
 
-          <div className="bg-zinc-200  h-[7.5em] w-[15em] flex flex-col justify-center items-center drop-shadow-xl rounded-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
+          <div className="flex flex-col items-center justify-center w-[15em] h-[7.5em] bg-zinc-200 rounded-xl drop-shadow-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
             <h1 className="text-lg font-medium mb-1">
               {mode ? "Decimal" : "Binário"}
             </h1>
             <input
-              className="border border-zinc-900 p-1 text-center rounded-2xl px-2 "
+              className="p-1 text-center border border-zinc-900 rounded-2xl px-2"
               value={result}
               type="text"
               disabled
