@@ -74,8 +74,8 @@ BinTwoDec/
 
 ## 📤 Deploy
 Deploy contínuo com Vercel:
--O projeto é automaticamente construído e hospedado com base na pasta dist.
--Certifique-se de que a configuração do Vercel está apontando para a saída correta (Output Directory = dist).
+- O projeto é automaticamente construído e hospedado com base na pasta dist.
+- Certifique-se de que a configuração do Vercel está apontando para a saída correta (Output Directory = dist).
 
 ## 🧑‍💻 Autor
 Desenvolvido por Joseph Kawe.
