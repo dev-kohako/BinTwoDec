@@ -2,13 +2,13 @@
 
 **Bin2Dec** é uma aplicação web simples que converte números binários (base 2) em números decimais (base 10). Desenvolvido com React, TypeScript, TailwindCSS e Vite, este projeto é uma ótima demonstração de um frontend moderno, minimalista e funcional.
 
-![Preview](./public/screenshot.png)
+![Preview](./public/KWK.png)
 
 ---
 
 ## 🚀 Demonstração
 
-Acesse a versão ao vivo: [https://bin-two-dec.vercel.app/](https://bin-two-dec.vercel.app/))
+Acesse a versão ao vivo: [https://bin-two-dec.vercel.app/](https://bin-two-dec.vercel.app/)
 
 ---
 
