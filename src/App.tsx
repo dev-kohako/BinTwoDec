@@ -12,7 +12,7 @@ function App() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-  
+
     if (/^\d*$/.test(newValue)) {
       setNumber(newValue);
       setShowNotification(false);
@@ -44,7 +44,7 @@ function App() {
     <>
       <Navbar />
       <Notification text="Apenas números" active={showNotification} />
-      <main className="flex flex-col items-center justify-center w-full h-screen bg-zinc-200 gap-y-10 font-poppins">
+      <main className="flex flex-col items-center justify-center w-full h-auto sm:h-screen bg-zinc-200 gap-y-10 font-poppins pt-[5rem] pb-[7rem] px-[10%]">
         <div className="flex flex-col items-center justify-center gap-y-5 md:flex-row md:gap-x-5">
           <div className="flex flex-col items-center justify-center w-[15em] h-[7.5em] bg-zinc-200 rounded-xl drop-shadow-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
             <h1 className="text-lg font-medium mb-1">
