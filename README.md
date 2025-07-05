@@ -54,8 +54,8 @@ npm run preview	Pré-visualiza o build de produção
 npm run lint	Executa o linter para verificar erros
 ```
 
-```
 ## 📁 Estrutura Esperada
+```
 BinTwoDec/
 ├── public/
 │   └── KWK.png
