@@ -2,7 +2,7 @@
 
 **Bin2Dec** é uma aplicação web simples que converte números binários (base 2) em números decimais (base 10). Desenvolvido com React, TypeScript, TailwindCSS e Vite, este projeto é uma ótima demonstração de um frontend moderno, minimalista e funcional.
 
-![Preview](./public/KWK.png)
+<img src="./public/screenshot.png" alt="Preview" width="300" />
 
 ---
 
@@ -44,3 +44,36 @@ npm install
 
 # Rode em modo desenvolvimento
 npm run dev
+```
+
+## 🧪 Scripts disponíveis
+```bash
+npm run dev	Inicia o servidor de desenvolvimento
+npm run build	Compila o projeto para produção (dist/)
+npm run preview	Pré-visualiza o build de produção
+npm run lint	Executa o linter para verificar erros
+```
+
+## 📁 Estrutura Esperada
+BinTwoDec/
+├── public/
+│   └── KWK.png
+├── src/
+│   ├── components/
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── ...
+├── index.html
+├── vite.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
+├── package.json
+└── README.md
+
+## 📤 Deploy
+Deploy contínuo com Vercel:
+-O projeto é automaticamente construído e hospedado com base na pasta dist.
+-Certifique-se de que a configuração do Vercel está apontando para a saída correta (Output Directory = dist).
+
+## 🧑‍💻 Autor
+Desenvolvido por Joseph Kawe.
