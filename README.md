@@ -1,81 +1,172 @@
-# Bin2Dec
+# Bin2Dec 🔢
 
-**Bin2Dec** é uma aplicação web simples que converte números binários (base 2) em números decimais (base 10). Desenvolvido com React, TypeScript, TailwindCSS e Vite, este projeto é uma ótima demonstração de um frontend moderno, minimalista e funcional.
+A sleek and modern web application that converts binary numbers (base 2) to decimal numbers (base 10). Built with React, TypeScript, TailwindCSS, and Vite, this project showcases a clean, minimalist, and highly functional frontend implementation.
 
-<img src="../public/screenshot.png" alt="Preview" width="300" />
-
----
-
-## 🚀 Demonstração
-
-Acesse a versão ao vivo: [https://bin-two-dec.vercel.app/](https://bin-two-dec.vercel.app/)
+<div align="center">
+  <img src="./public/screenshot.png" alt="Bin2Dec Application Preview" width="600" />
+</div>
 
 ---
 
-## ✨ Funcionalidades
+## 🚀 Live Demo
 
-- ✅ Conversão instantânea de binário para decimal
-- ✅ Validação de entrada (aceita apenas 0 e 1)
-- ✅ Interface responsiva com TailwindCSS
-- ✅ Build rápido com Vite
-- ✅ Escrito em TypeScript
+Experience the app in action: **[https://bin-two-dec.vercel.app/](https://bin-two-dec.vercel.app/)**
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Features
 
-- [React 19](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite 6](https://vitejs.dev/)
-- [TailwindCSS 4](https://tailwindcss.com/)
-- [ESLint](https://eslint.org/)
+- 🔄 **Instant Conversion**: Real-time binary to decimal conversion
+- 🛡️ **Input Validation**: Accepts only valid binary digits (0 and 1)
+- 📱 **Responsive Design**: Fully responsive interface built with TailwindCSS
+- ⚡ **Lightning Fast**: Optimized build process with Vite
+- 🔧 **Type Safety**: Written entirely in TypeScript
+- 🎨 **Modern UI**: Clean and intuitive user interface
 
 ---
 
-## 📦 Instalação e Uso
+## 🛠️ Tech Stack
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| [React](https://react.dev/) | 19 | Frontend Framework |
+| [TypeScript](https://www.typescriptlang.org/) | Latest | Type Safety |
+| [Vite](https://vitejs.dev/) | 6 | Build Tool & Dev Server |
+| [TailwindCSS](https://tailwindcss.com/) | 4 | Styling Framework |
+| [ESLint](https://eslint.org/) | Latest | Code Linting |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/bintwodec
-cd bintwodec
+# Clone the repository
+git clone https://github.com/your-username/bin2dec.git
+cd bin2dec
 
-# Instale as dependências
+# Install dependencies
 npm install
 
-# Rode em modo desenvolvimento
+# Start development server
 npm run dev
 ```
 
-## 🧪 Scripts disponíveis
-```bash
-npm run dev	Inicia o servidor de desenvolvimento
-npm run build	Compila o projeto para produção (dist/)
-npm run preview	Pré-visualiza o build de produção
-npm run lint	Executa o linter para verificar erros
-```
+The application will be available at `http://localhost:5173`
 
-## 📁 Estrutura Esperada
+---
+
+## 📜 Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Starts the development server with hot reload |
+| `npm run build` | Creates optimized production build in `dist/` |
+| `npm run preview` | Serves the production build locally |
+| `npm run lint` | Runs ESLint to check for code issues |
+| `npm run lint:fix` | Automatically fixes linting issues |
+
+---
+
+## 📁 Project Structure
+
 ```
-BinTwoDec/
+bin2dec/
 ├── public/
-│   └── KWK.png
+│   ├── KWK.png
+│   └── screenshot.png
 ├── src/
 │   ├── components/
+│   │   └── [Component files]
+│   ├── types/
+│   │   └── [Type definitions]
+│   ├── utils/
+│   │   └── [Utility functions]
 │   ├── App.tsx
 │   ├── main.tsx
-│   └── ...
+│   ├── index.css
+│   └── vite-env.d.ts
 ├── index.html
 ├── vite.config.ts
 ├── tailwind.config.ts
 ├── tsconfig.json
 ├── package.json
+├── eslint.config.js
 └── README.md
 ```
 
-## 📤 Deploy
-Deploy contínuo com Vercel:
-- O projeto é automaticamente construído e hospedado com base na pasta dist.
-- Certifique-se de que a configuração do Vercel está apontando para a saída correta (Output Directory = dist).
+---
 
-## 🧑‍💻 Autor
-Desenvolvido por Joseph Kawe.
+## 🌐 Deployment
+
+This project is configured for seamless deployment on **Vercel**:
+
+### Automatic Deployment
+- Connected to GitHub for continuous deployment
+- Automatically builds and deploys on every push to main branch
+- Build output directory: `dist/`
+
+### Manual Deployment
+```bash
+# Build for production
+npm run build
+
+# Deploy to Vercel (requires Vercel CLI)
+vercel --prod
+```
+
+### Environment Configuration
+- **Framework Preset**: Vite
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Install Command**: `npm install`
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Development Guidelines
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 👨‍💻 Author
+
+**Joseph Kawe**
+
+- GitHub: [@your-username](dev-kohako)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/josephkawe/)
+- Email: josephkawe000@gmail.com
+
+---
+
+## 📊 Project Stats
+
+![GitHub stars](https://img.shields.io/github/stars/dev-kohako/bin2dec?style=social)
+![GitHub forks](https://img.shields.io/github/forks/dev-kohako/bin2dec?style=social)
+![GitHub issues](https://img.shields.io/github/issues/dev-kohako/bin2dec)
+![GitHub license](https://img.shields.io/github/license/dev-kohako/bin2dec)
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by Joseph Kawe</p>
+  <p>⭐ Star this repository if you found it helpful!</p>
+</div>
