@@ -2,7 +2,7 @@
 
 **Bin2Dec** é uma aplicação web simples que converte números binários (base 2) em números decimais (base 10). Desenvolvido com React, TypeScript, TailwindCSS e Vite, este projeto é uma ótima demonstração de um frontend moderno, minimalista e funcional.
 
-<img src="./public/screenshot.png" alt="Preview" width="300" />
+<img src="../public/screenshot.png" alt="Preview" width="300" />
 
 ---
 
