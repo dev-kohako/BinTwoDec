@@ -151,18 +151,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Joseph Kawe**
 
-- GitHub: [@your-username](dev-kohako)
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/josephkawe/)
+- GitHub: [https://github.com/dev-kohako](https://github.com/dev-kohako)
+- LinkedIn: [https://www.linkedin.com/in/josephkawe/](https://www.linkedin.com/in/josephkawe/)
 - Email: josephkawe000@gmail.com
-
----
-
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/dev-kohako/bin2dec?style=social)
-![GitHub forks](https://img.shields.io/github/forks/dev-kohako/bin2dec?style=social)
-![GitHub issues](https://img.shields.io/github/issues/dev-kohako/bin2dec)
-![GitHub license](https://img.shields.io/github/license/dev-kohako/bin2dec)
 
 ---
 
