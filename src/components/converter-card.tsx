@@ -72,7 +72,7 @@ export const ConverterCard = ({
       </label>
       <input
         id={id}
-        className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center outline-zinc-900 transition-colors duration-300 placeholder:text-zinc-500 dark:border-zinc-100 dark:outline-zinc-100 dark:placeholder:text-zinc-400"
+        className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center font-mono transition-colors duration-300 outline-zinc-900 placeholder:font-sans placeholder:text-zinc-500 dark:border-zinc-100 dark:outline-zinc-100 dark:placeholder:text-zinc-400"
         value={value}
         onChange={onChange}
         type="text"

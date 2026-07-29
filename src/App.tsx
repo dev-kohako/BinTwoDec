@@ -84,7 +84,7 @@ function App() {
     <>
       <Navbar />
       <Notification text={warning} active={warning !== ""} />
-      <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 font-poppins transition-colors duration-300 sm:px-6 md:pb-24 lg:px-8 dark:bg-zinc-900 dark:text-zinc-100">
+      <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 transition-colors duration-300 sm:px-6 md:pb-24 lg:px-8 dark:bg-zinc-900 dark:text-zinc-100">
         <h1 className="sr-only">Conversor de binário e decimal</h1>
 
         <div className="flex w-full flex-col items-center justify-center gap-5 md:flex-row">

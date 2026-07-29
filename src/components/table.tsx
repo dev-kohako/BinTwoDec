@@ -42,9 +42,13 @@ export const Table = () => {
                 >
                   {id}
                 </th>
-                <td className="px-3 py-4 whitespace-nowrap sm:px-6">{binary}</td>
-                <td className="px-3 py-4 whitespace-nowrap sm:px-6">{decimal}</td>
-                <td className="px-3 py-4 whitespace-nowrap sm:px-6">
+                <td className="px-3 py-4 font-mono whitespace-nowrap sm:px-6">
+                  {binary}
+                </td>
+                <td className="px-3 py-4 font-mono whitespace-nowrap sm:px-6">
+                  {decimal}
+                </td>
+                <td className="px-3 py-4 font-mono whitespace-nowrap sm:px-6">
                   {binary} → {decimal} / {decimal} → {binary}
                 </td>
               </tr>
