@@ -1,15 +1,16 @@
 export const Navbar = () => {
   return (
-    <footer className="bg-zinc-200 border-b border-zinc-950/10 shadow-[0px_-3px_12px_-8px_rgba(0,_0,_0,_1)] text-center py-2 z-50 fixed top-0 w-full flex justify-center items-center font-poppins">
-      <div className="items-center justify-between max-w-[1024px] container flex-grow flex md:items-center mx-6">
-        <a href="" className="text-center font-medium flex gap-x-1 cursor-pointer">
-          <img className="invert w-3 object-contain mb-0.5" src="/KWK.png" alt="Logo" />
+    <header className="fixed top-0 z-50 flex w-full items-center justify-center border-b border-zinc-950/10 bg-zinc-200 py-2 text-center font-poppins shadow-[0px_3px_12px_-8px_rgba(0,_0,_0,_1)]">
+      <nav className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-4 sm:px-6">
+        <a
+          href="/"
+          className="flex items-center gap-x-1 rounded font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+        >
+          <img className="mb-0.5 w-3 object-contain invert" src="/KWK.png" alt="" />
           KWK
         </a>
-        <div className="flex justify-center items-center space-x-2 font-medium">
-            Bin2Dec
-        </div>
-      </div>
-    </footer>
-  )
-}
+        <p className="font-medium">Bin2Dec</p>
+      </nav>
+    </header>
+  );
+};
