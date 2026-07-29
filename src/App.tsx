@@ -111,6 +111,7 @@ function App() {
             id="result-value"
             label={targetLabel}
             value={result}
+            placeholder="Resultado"
             readOnly
             live
           />
