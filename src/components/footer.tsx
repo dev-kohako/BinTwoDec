@@ -1,22 +1,24 @@
 import {
-  BentoMeIcon,
-  GithubIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  YouTubeIcon,
-} from "./icons";
+  SiBento,
+  SiGithub,
+  SiInstagram,
+  SiYoutube,
+} from "@icons-pack/react-simple-icons";
+import { LinkedInIcon } from "./icons";
 import { siteConfig } from "./links";
 
 // Avaliado no import: chamar new Date() durante o render quebraria a
 // pureza que o React Compiler exige.
 const CURRENT_YEAR = new Date().getFullYear();
 
+const ICON_SIZE = 20;
+
 const SOCIAL_LINKS = [
-  { label: "GitHub", href: siteConfig.links.github, Icon: GithubIcon },
+  { label: "GitHub", href: siteConfig.links.github, Icon: SiGithub },
   { label: "LinkedIn", href: siteConfig.links.linkedin, Icon: LinkedInIcon },
-  { label: "Instagram", href: siteConfig.links.instagram, Icon: InstagramIcon },
-  { label: "Bento", href: siteConfig.links.bento, Icon: BentoMeIcon },
-  { label: "YouTube", href: siteConfig.links.youtube, Icon: YouTubeIcon },
+  { label: "Instagram", href: siteConfig.links.instagram, Icon: SiInstagram },
+  { label: "Bento", href: siteConfig.links.bento, Icon: SiBento },
+  { label: "YouTube", href: siteConfig.links.youtube, Icon: SiYoutube },
 ];
 
 export const Footer = () => {
@@ -36,7 +38,10 @@ export const Footer = () => {
                 aria-label={label}
                 className="inline-flex rounded text-zinc-800 transition-colors duration-300 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 dark:text-zinc-200 dark:hover:text-white dark:focus-visible:outline-zinc-100"
               >
-                <Icon />
+                {/* O nome acessível vem do aria-label do link. Os ícones do
+                    Simple Icons trazem <title> próprio, que sem isso viraria
+                    um gráfico nomeado redundante dentro do link. */}
+                <Icon size={ICON_SIZE} aria-hidden="true" />
               </a>
             </li>
           ))}

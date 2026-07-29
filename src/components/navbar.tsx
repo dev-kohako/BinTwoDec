@@ -1,4 +1,4 @@
-import { MoonFilledIcon, SunFilledIcon } from "./icons";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "../hooks/use-theme";
 
 export const Navbar = () => {
@@ -29,7 +29,7 @@ export const Navbar = () => {
             aria-pressed={isDark}
             className="rounded-lg border border-zinc-950/10 p-1.5 text-zinc-800 transition-colors duration-300 hover:bg-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 dark:border-white/10 dark:text-zinc-200 dark:hover:bg-zinc-800 dark:focus-visible:outline-zinc-100"
           >
-            {isDark ? <SunFilledIcon size={18} /> : <MoonFilledIcon size={18} />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>
       </nav>
