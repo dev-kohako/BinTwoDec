@@ -1,5 +1,29 @@
 import type { IconSvgProps } from "../types";
 
+export const ChevronDownIcon = ({
+  size = 20,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    height={height ?? size}
+    viewBox="0 0 24 24"
+    width={width ?? size}
+    {...props}
+  >
+    <path
+      d="M6 9l6 6 6-6"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    />
+  </svg>
+);
+
 export const MoonFilledIcon = ({
   size = 24,
   width,
