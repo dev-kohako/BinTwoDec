@@ -3,6 +3,7 @@ import { Footer } from "./components/footer";
 import { Navbar } from "./components/navbar";
 import { Table } from "./components/table";
 import { Notification } from "./components/notification";
+import { ConverterCard } from "./components/converter-card";
 
 type Mode = "decimal" | "binary";
 
@@ -95,22 +96,13 @@ function App() {
         <h1 className="sr-only">Conversor de binário e decimal</h1>
 
         <div className="flex w-full flex-col items-center justify-center gap-5 md:flex-row">
-          <div className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[var(--card-shadow)] drop-shadow-xl transition-[background-color,box-shadow] duration-300 dark:bg-zinc-900">
-            <label htmlFor="source-value" className="text-lg font-medium">
-              {sourceLabel}
-            </label>
-            <input
-              id="source-value"
-              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center outline-zinc-900 transition-colors duration-300 placeholder:text-zinc-500 dark:border-zinc-100 dark:outline-zinc-100 dark:placeholder:text-zinc-400"
-              value={number}
-              onChange={handleChange}
-              type="text"
-              inputMode="numeric"
-              autoComplete="off"
-              spellCheck={false}
-              placeholder={mode === "binary" ? "Ex.: 1010" : "Ex.: 10"}
-            />
-          </div>
+          <ConverterCard
+            id="source-value"
+            label={sourceLabel}
+            value={number}
+            onChange={handleChange}
+            placeholder={mode === "binary" ? "Ex.: 1010" : "Ex.: 10"}
+          />
 
           <button
             type="button"
@@ -120,21 +112,13 @@ function App() {
             Trocar
           </button>
 
-          <div
-            className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[var(--card-shadow)] drop-shadow-xl transition-[background-color,box-shadow] duration-300 dark:bg-zinc-900"
-            aria-live="polite"
-          >
-            <label htmlFor="result-value" className="text-lg font-medium">
-              {targetLabel}
-            </label>
-            <input
-              id="result-value"
-              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center transition-colors duration-300 dark:border-zinc-100"
-              value={result}
-              type="text"
-              readOnly
-            />
-          </div>
+          <ConverterCard
+            id="result-value"
+            label={targetLabel}
+            value={result}
+            readOnly
+            live
+          />
         </div>
         <Table />
       </main>
