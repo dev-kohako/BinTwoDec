@@ -22,19 +22,27 @@
 :root {
   color-scheme: light;
 
-  --neu-dark: #9b9b9d;
+  /* No claro o relevo dependia de #ffffff sobre um fundo #e4e4e7, diferença
+     de luminância pequena demais para desenhar uma aresta. O que resolve não
+     é escurecer a sombra difusa, é dar contorno: --card-ring traça uma
+     hairline e --card-contact uma sombra curta logo abaixo da borda. No
+     escuro o mesmo par existe com sinal invertido. */
+  --neu-dark: rgba(113, 113, 122, 0.5);
   --neu-light: #ffffff;
-  --card-edge-top: rgba(255, 255, 255, 0.85);
-  --card-edge-bottom: rgba(0, 0, 0, 0.1);
-  --card-drop: rgba(0, 0, 0, 0.35);
+  --card-ring: rgba(24, 24, 27, 0.12);
+  --card-edge-top: rgba(255, 255, 255, 0.9);
+  --card-edge-bottom: rgba(24, 24, 27, 0.07);
+  --card-contact: rgba(24, 24, 27, 0.16);
   --card-glare: rgba(255, 255, 255, 0.55);
 
   --card-shadow:
-    6px 6px 26px var(--neu-dark),
-    -6px -6px 26px var(--neu-light),
+    inset 0 0 0 1px var(--card-ring),
     inset 0 1px 0 var(--card-edge-top),
-    inset 0 -2px 0 var(--card-edge-bottom),
-    0 12px 20px -14px var(--card-drop);
+    inset 0 -1px 0 var(--card-edge-bottom),
+    0 1px 2px var(--card-contact),
+    0 10px 22px -12px var(--card-contact),
+    8px 8px 24px var(--neu-dark),
+    -8px -8px 24px var(--neu-light);
 }
 
 .dark {
@@ -42,9 +50,10 @@
 
   --neu-dark: #09090b;
   --neu-light: #303038;
+  --card-ring: rgba(255, 255, 255, 0.07);
   --card-edge-top: rgba(255, 255, 255, 0.1);
   --card-edge-bottom: rgba(0, 0, 0, 0.55);
-  --card-drop: rgba(0, 0, 0, 0.8);
+  --card-contact: rgba(0, 0, 0, 0.65);
   --card-glare: rgba(255, 255, 255, 0.07);
 }
 
