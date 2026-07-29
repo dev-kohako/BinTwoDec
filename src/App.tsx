@@ -91,17 +91,17 @@ function App() {
     <>
       <Navbar />
       <Notification text={warning} active={warning !== ""} />
-      <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 font-poppins sm:px-6 md:pb-24 lg:px-8">
+      <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 font-poppins transition-colors duration-300 sm:px-6 md:pb-24 lg:px-8 dark:bg-zinc-900 dark:text-zinc-100">
         <h1 className="sr-only">Conversor de binário e decimal</h1>
 
         <div className="flex w-full flex-col items-center justify-center gap-5 md:flex-row">
-          <div className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff] drop-shadow-xl">
+          <div className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[var(--card-shadow)] drop-shadow-xl transition-[background-color,box-shadow] duration-300 dark:bg-zinc-900">
             <label htmlFor="source-value" className="text-lg font-medium">
               {sourceLabel}
             </label>
             <input
               id="source-value"
-              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center outline-zinc-900"
+              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center outline-zinc-900 transition-colors duration-300 placeholder:text-zinc-500 dark:border-zinc-100 dark:outline-zinc-100 dark:placeholder:text-zinc-400"
               value={number}
               onChange={handleChange}
               type="text"
@@ -115,13 +115,13 @@ function App() {
           <button
             type="button"
             onClick={toggleMode}
-            className="rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2 py-1 text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700"
+            className="rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2 py-1 text-zinc-200 transition-colors duration-300 hover:bg-zinc-800 active:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:active:bg-zinc-400"
           >
             Trocar
           </button>
 
           <div
-            className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff] drop-shadow-xl"
+            className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[var(--card-shadow)] drop-shadow-xl transition-[background-color,box-shadow] duration-300 dark:bg-zinc-900"
             aria-live="polite"
           >
             <label htmlFor="result-value" className="text-lg font-medium">
@@ -129,7 +129,7 @@ function App() {
             </label>
             <input
               id="result-value"
-              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center"
+              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center transition-colors duration-300 dark:border-zinc-100"
               value={result}
               type="text"
               readOnly

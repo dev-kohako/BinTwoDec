@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* O tema escuro e controlado por classe, e nao por prefers-color-scheme,
+   para que o botao da navbar possa sobrepor a preferencia do sistema. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* O relevo dos cards e um box-shadow de valor arbitrario, que nenhuma
+   variante dark: alcancaria de forma legivel. Mantendo as cores em
+   variaveis, a troca de tema atinge tambem as sombras. */
+:root {
+  color-scheme: light;
+  --card-shadow: 6px 6px 26px #9b9b9d, -6px -6px 26px #ffffff;
+}
+
+.dark {
+  color-scheme: dark;
+  --card-shadow: 6px 6px 26px #09090b, -6px -6px 26px #303038;
 }
