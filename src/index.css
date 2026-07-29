@@ -10,13 +10,100 @@
 
 /* O relevo dos cards e um box-shadow de valor arbitrario, que nenhuma
    variante dark: alcancaria de forma legivel. Mantendo as cores em
-   variaveis, a troca de tema atinge tambem as sombras. */
+   variaveis, a troca de tema atinge tambem o relevo.
+   --card-shadow e montado uma unica vez aqui: como .dark redefine as
+   pecas no mesmo elemento (o <html>), o valor composto se resolve com as
+   cores do tema ativo sem precisar ser reescrito. */
 :root {
   color-scheme: light;
-  --card-shadow: 6px 6px 26px #9b9b9d, -6px -6px 26px #ffffff;
+
+  --neu-dark: #9b9b9d;
+  --neu-light: #ffffff;
+  --card-edge-top: rgba(255, 255, 255, 0.85);
+  --card-edge-bottom: rgba(0, 0, 0, 0.1);
+  --card-drop: rgba(0, 0, 0, 0.35);
+  --card-glare: rgba(255, 255, 255, 0.55);
+
+  --card-shadow:
+    6px 6px 26px var(--neu-dark),
+    -6px -6px 26px var(--neu-light),
+    inset 0 1px 0 var(--card-edge-top),
+    inset 0 -2px 0 var(--card-edge-bottom),
+    0 12px 20px -14px var(--card-drop);
 }
 
 .dark {
   color-scheme: dark;
-  --card-shadow: 6px 6px 26px #09090b, -6px -6px 26px #303038;
+
+  --neu-dark: #09090b;
+  --neu-light: #303038;
+  --card-edge-top: rgba(255, 255, 255, 0.1);
+  --card-edge-bottom: rgba(0, 0, 0, 0.55);
+  --card-drop: rgba(0, 0, 0, 0.8);
+  --card-glare: rgba(255, 255, 255, 0.07);
+}
+
+@layer components {
+  /* Volume fixo pelas camadas de --card-shadow, mais inclinacao seguindo o
+     ponteiro. Os angulos e a posicao do brilho chegam como variaveis,
+     escritas direto no style pelo handler: um setState por movimento do
+     ponteiro seria descartado no frame seguinte. */
+  .card-3d {
+    position: relative;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --tilt-ease: 450ms;
+    --glare-x: 50%;
+    --glare-y: 50%;
+    --glare-opacity: 0;
+
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transform-style: preserve-3d;
+    transition:
+      transform var(--tilt-ease) cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms ease-out,
+      background-color 300ms ease-out;
+  }
+
+  .card-3d::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--glare-opacity);
+    background: radial-gradient(
+      16rem circle at var(--glare-x) var(--glare-y),
+      var(--card-glare),
+      transparent 65%
+    );
+    transition: opacity 300ms ease-out;
+  }
+
+  /* O conteudo flutua sobre a face do card. O deslocamento e pequeno de
+     proposito: com perspective de 900px, 12px ja da o paralaxe sem
+     ampliar o texto o suficiente para borrar. */
+  .card-3d > * {
+    transform: translateZ(0.75rem);
+  }
+
+  /* Em toque nao existe ponteiro para acompanhar; fica so o volume fixo. */
+  @media (hover: none), (pointer: coarse) {
+    .card-3d,
+    .card-3d > * {
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-3d,
+    .card-3d > * {
+      transform: none;
+    }
+
+    .card-3d,
+    .card-3d::after {
+      transition: none;
+    }
+  }
 }
