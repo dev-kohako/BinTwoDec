@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { ArrowLeftRight } from "lucide-react";
 import { Footer } from "./components/footer";
 import { Navbar } from "./components/navbar";
 import { Table } from "./components/table";
@@ -98,8 +99,11 @@ function App() {
           <button
             type="button"
             onClick={toggleMode}
-            className="rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2 py-1 text-zinc-200 transition-colors duration-300 hover:bg-zinc-800 active:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:active:bg-zinc-400"
+            className="flex items-center gap-x-1.5 rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2.5 py-1.5 text-zinc-200 transition-colors duration-300 hover:bg-zinc-800 active:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:active:bg-zinc-400"
           >
+            {/* Em coluna os cards ficam um sobre o outro, então a seta aponta
+                na direção que a troca realmente acontece. */}
+            <ArrowLeftRight size={16} className="rotate-90 md:rotate-0" />
             Trocar
           </button>
 

@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "./icons";
+import { ChevronDown } from "lucide-react";
 import { buildExpansion, groupDigits } from "../lib/conversion";
 
 interface ResultDetailsProps {
@@ -36,7 +36,8 @@ export const ResultDetails = ({
         className="mx-auto flex items-center gap-x-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-700 transition-colors duration-300 hover:bg-zinc-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:focus-visible:outline-zinc-100"
       >
         {open ? "Ocultar cálculo completo" : "Ver cálculo completo"}
-        <ChevronDownIcon
+        <ChevronDown
+          size={16}
           className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
         />
       </button>
