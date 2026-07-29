@@ -4,45 +4,36 @@ import { Navbar } from "./components/navbar";
 import { Table } from "./components/table";
 import { Notification } from "./components/notification";
 import { ConverterCard } from "./components/converter-card";
-
-type Mode = "decimal" | "binary";
+import { ResultDetails } from "./components/result-details";
+import {
+  convert,
+  INPUT_RULES,
+  RESULT_VISIBLE_CHARS,
+  type Mode,
+} from "./lib/conversion";
 
 const NOTIFICATION_TIMEOUT_MS = 3000;
 
 /** Evita travar a UI se colarem uma entrada absurdamente longa. */
 const MAX_INPUT_LENGTH = 1024;
 
-const INPUT_RULES: Record<Mode, { pattern: RegExp; warning: string }> = {
-  decimal: { pattern: /^\d*$/, warning: "Apenas números" },
-  binary: { pattern: /^[01]*$/, warning: "Apenas 0 e 1" },
-};
-
-/**
- * Converte com BigInt para não perder precisão acima de
- * Number.MAX_SAFE_INTEGER nem estourar para Infinity em entradas longas.
- */
-function convert(value: string, mode: Mode): string {
-  if (value === "") return "";
-
-  try {
-    return mode === "binary"
-      ? BigInt(`0b${value}`).toString(10)
-      : BigInt(value).toString(2);
-  } catch {
-    return "Inválido";
-  }
-}
-
 function App() {
   const [number, setNumber] = useState("");
   const [mode, setMode] = useState<Mode>("decimal");
   const [warning, setWarning] = useState("");
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const warningTimeout = useRef<number | null>(null);
 
   // O resultado é derivado da entrada: sem estado espelhado nem efeito.
   const result = convert(number, mode);
   const sourceLabel = mode === "binary" ? "Binário" : "Decimal";
   const targetLabel = mode === "binary" ? "Decimal" : "Binário";
+
+  // O painel só é oferecido quando o resultado deixa de caber no input, e
+  // some sozinho quando volta a caber: derivar evita um efeito para fechá-lo.
+  const resultIsBinary = mode === "decimal";
+  const canExpand =
+    result !== "" && result !== "Inválido" && result.length > RESULT_VISIBLE_CHARS;
 
   useEffect(() => {
     return () => {
@@ -120,6 +111,19 @@ function App() {
             live
           />
         </div>
+
+        {canExpand && (
+          <ResultDetails
+            open={detailsOpen}
+            onToggle={() => setDetailsOpen((previous) => !previous)}
+            binary={resultIsBinary ? result : number}
+            decimal={resultIsBinary ? number : result}
+            result={result}
+            resultIsBinary={resultIsBinary}
+            label={targetLabel}
+          />
+        )}
+
         <Table />
       </main>
       <Footer />
