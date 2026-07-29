@@ -1,85 +1,138 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { Footer } from "./components/footer";
 import { Navbar } from "./components/navbar";
 import { Table } from "./components/table";
 import { Notification } from "./components/notification";
 
+type Mode = "decimal" | "binary";
+
+const NOTIFICATION_TIMEOUT_MS = 3000;
+
+/** Evita travar a UI se colarem uma entrada absurdamente longa. */
+const MAX_INPUT_LENGTH = 1024;
+
+const INPUT_RULES: Record<Mode, { pattern: RegExp; warning: string }> = {
+  decimal: { pattern: /^\d*$/, warning: "Apenas números" },
+  binary: { pattern: /^[01]*$/, warning: "Apenas 0 e 1" },
+};
+
+/**
+ * Converte com BigInt para não perder precisão acima de
+ * Number.MAX_SAFE_INTEGER nem estourar para Infinity em entradas longas.
+ */
+function convert(value: string, mode: Mode): string {
+  if (value === "") return "";
+
+  try {
+    return mode === "binary"
+      ? BigInt(`0b${value}`).toString(10)
+      : BigInt(value).toString(2);
+  } catch {
+    return "Inválido";
+  }
+}
+
 function App() {
-  const [number, setNumber] = useState<string>("");
-  const [mode, setMode] = useState<boolean>(false);
-  const [result, setResult] = useState<string>("");
-  const [showNotification, setShowNotification] = useState<boolean>(false);
+  const [number, setNumber] = useState("");
+  const [mode, setMode] = useState<Mode>("decimal");
+  const [warning, setWarning] = useState("");
+  const warningTimeout = useRef<number | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-
-    if (/^\d*$/.test(newValue)) {
-      setNumber(newValue);
-      setShowNotification(false);
-    } else {
-      if (!showNotification) {
-        setShowNotification(true);
-        setTimeout(() => {
-          setShowNotification(false);
-        }, 3000);
-      }
-    }
-  };
-
-  const convertNumber = () => {
-    if (!mode) {
-      const binary = parseInt(number, 10).toString(2);
-      setResult(isNaN(parseInt(number, 10)) ? "Inválido" : binary);
-    } else {
-      const decimal = parseInt(number, 2);
-      setResult(isNaN(decimal) ? "Inválido" : decimal.toString());
-    }
-  };
+  // O resultado é derivado da entrada: sem estado espelhado nem efeito.
+  const result = convert(number, mode);
+  const sourceLabel = mode === "binary" ? "Binário" : "Decimal";
+  const targetLabel = mode === "binary" ? "Decimal" : "Binário";
 
   useEffect(() => {
-    convertNumber();
-  }, [number]);
+    return () => {
+      if (warningTimeout.current !== null) {
+        clearTimeout(warningTimeout.current);
+      }
+    };
+  }, []);
+
+  const showWarning = (message: string) => {
+    setWarning(message);
+
+    if (warningTimeout.current !== null) {
+      clearTimeout(warningTimeout.current);
+    }
+    warningTimeout.current = window.setTimeout(() => {
+      setWarning("");
+      warningTimeout.current = null;
+    }, NOTIFICATION_TIMEOUT_MS);
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    const rule = INPUT_RULES[mode];
+
+    if (!rule.pattern.test(newValue)) {
+      showWarning(rule.warning);
+      return;
+    }
+
+    if (newValue.length > MAX_INPUT_LENGTH) {
+      showWarning(`Máximo de ${MAX_INPUT_LENGTH} dígitos`);
+      return;
+    }
+
+    setNumber(newValue);
+    setWarning("");
+  };
+
+  const toggleMode = () => {
+    setMode((previous) => (previous === "binary" ? "decimal" : "binary"));
+    setNumber("");
+    setWarning("");
+  };
 
   return (
     <>
       <Navbar />
-      <Notification text="Apenas números" active={showNotification} />
-      <main className="flex flex-col items-center justify-center w-full h-auto sm:h-screen bg-zinc-200 gap-y-10 font-poppins pt-[5rem] pb-[7rem] px-[10%]">
-        <div className="flex flex-col items-center justify-center gap-y-5 md:flex-row md:gap-x-5">
-          <div className="flex flex-col items-center justify-center w-[15em] h-[7.5em] bg-zinc-200 rounded-xl drop-shadow-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
-            <h1 className="text-lg font-medium mb-1">
-              {mode ? "Binário" : "Decimal"}
-            </h1>
+      <Notification text={warning} active={warning !== ""} />
+      <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 font-poppins sm:px-6 md:pb-24 lg:px-8">
+        <h1 className="sr-only">Conversor de binário e decimal</h1>
+
+        <div className="flex w-full flex-col items-center justify-center gap-5 md:flex-row">
+          <div className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff] drop-shadow-xl">
+            <label htmlFor="source-value" className="text-lg font-medium">
+              {sourceLabel}
+            </label>
             <input
-              className="p-1 text-center border border-zinc-900 rounded-2xl px-2 outline-zinc-900"
+              id="source-value"
+              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center outline-zinc-900"
               value={number}
               onChange={handleChange}
               type="text"
               inputMode="numeric"
-              placeholder={mode ? "Digite binário (0 ou 1)" : "Digite decimal"}
+              autoComplete="off"
+              spellCheck={false}
+              placeholder={mode === "binary" ? "Ex.: 1010" : "Ex.: 10"}
             />
           </div>
 
           <button
-            onClick={() => {
-              setMode((prev) => !prev);
-              setNumber("");
-              setResult("");
-            }}
-            className="px-2 py-1 rounded-xl border-2 border-zinc-200 text-zinc-200 bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-700"
+            type="button"
+            onClick={toggleMode}
+            className="rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2 py-1 text-zinc-200 hover:bg-zinc-800 active:bg-zinc-700"
           >
             Trocar
           </button>
 
-          <div className="flex flex-col items-center justify-center w-[15em] h-[7.5em] bg-zinc-200 rounded-xl drop-shadow-xl shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff]">
-            <h1 className="text-lg font-medium mb-1">
-              {mode ? "Decimal" : "Binário"}
-            </h1>
+          <div
+            className="flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[6px_6px_26px_#9b9b9d,-6px_-6px_26px_#ffffff] drop-shadow-xl"
+            aria-live="polite"
+          >
+            <label htmlFor="result-value" className="text-lg font-medium">
+              {targetLabel}
+            </label>
             <input
-              className="p-1 text-center border border-zinc-900 rounded-2xl px-2"
+              id="result-value"
+              className="w-full rounded-2xl border border-zinc-900 px-2 py-1 text-center"
               value={result}
               type="text"
-              disabled
+              readOnly
             />
           </div>
         </div>
