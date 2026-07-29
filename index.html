@@ -9,12 +9,31 @@
       name="description"
       content="Conversor de números entre binário e decimal, com validação de entrada e precisão sem limite de tamanho."
     />
+    <meta name="theme-color" content="#e4e4e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Aplica o tema antes do primeiro paint. Sem isso, a pagina pisca no
+      // tema claro ate o React montar e o efeito rodar. Mesma regra de
+      // resolucao do hook use-theme: escolha salva, senao a do sistema.
+      (function () {
+        try {
+          var stored = localStorage.getItem("bintwodec-theme");
+          var dark =
+            stored === "dark" ||
+            (stored === null &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (error) {
+          // localStorage bloqueado: segue no tema claro.
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

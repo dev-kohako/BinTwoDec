@@ -9,10 +9,10 @@ export const Notification = ({ text, active }: NotificationProps) => {
   return (
     <div className="pointer-events-none fixed inset-0 z-50">
       <div
-        className="absolute top-5 right-4 left-4 ml-auto flex max-w-xs items-center rounded-lg bg-zinc-200 p-4 text-zinc-600 shadow"
+        className="absolute top-5 right-4 left-4 ml-auto flex max-w-xs items-center rounded-lg bg-zinc-200 p-4 text-zinc-600 shadow transition-colors duration-300 dark:bg-zinc-800 dark:text-zinc-300"
         role="alert"
       >
-        <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500">
+        <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 transition-colors duration-300 dark:bg-orange-500/20 dark:text-orange-300">
           <svg
             className="h-5 w-5"
             aria-hidden="true"
