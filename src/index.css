@@ -4,8 +4,13 @@
    para que o botao da navbar possa sobrepor a preferencia do sistema. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Sobrescrever --font-sans troca a fonte de todo o app: o Tailwind 4 deriva
+   --default-font-family dela, então não é preciso uma classe por elemento.
+   O mono não é decorativo aqui: em binário longo, largura fixa por dígito é
+   o que deixa os bits alinhados e contáveis. */
 @theme {
-  --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* O relevo dos cards e um box-shadow de valor arbitrario, que nenhuma

@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "KWK - Bin2Dec",
+  name: "Bin2Dec by KWK",
   links: {
     github: "https://github.com/dev-kohako",
     youtube: "https://www.youtube.com/@dev_kohako",
