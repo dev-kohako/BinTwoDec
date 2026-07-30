@@ -42,30 +42,27 @@ Cards com relevo e inclinação seguindo o cursor, desligada em toque e sob
 | <img src="./public/screenshot-light.png" alt="Tema claro" /> | <img src="./public/screenshot-dark.png" alt="Tema escuro" /> |
 -->
 
-## Decisões de projeto
+## Como foi construído
 
-O que faria diferente de um conversor escrito às pressas.
+**Precisão com `BigInt`.** Toda conversão passa por `BigInt`, então não existe
+teto de tamanho nem arredondamento: 64 bits ligados devolvem
+`18446744073709551615` exato. A validação da entrada acompanha o modo, então
+o modo binário aceita apenas `0` e `1`.
 
-**`BigInt` em vez de `parseInt`.** `parseInt(v, 2)` para no primeiro dígito
-fora do alfabeto e devolve o que leu até ali: `"19"` virava `1`, resultado
-errado sem aviso nenhum. Acima de `Number.MAX_SAFE_INTEGER` a conversão
-perdia precisão, e entradas longas viravam a string `"Infinity"`, porque
-`isNaN(Infinity)` é `false`. Os quatro casos estão fixados em teste.
+**Resultado derivado, não estado.** O valor convertido é calculado no render a
+partir da entrada e do modo, sem `useState` nem `useEffect` próprios. Um
+estado a menos para manter em sincronia, e o React Compiler memoiza a
+derivação.
 
-**Resultado derivado, não estado.** O valor convertido é calculado no render
-a partir da entrada e do modo. Não há `useState` nem `useEffect` para ele, o
-que remove por construção o efeito que não reagia à troca de modo e o
-resultado defasado em um frame. O React Compiler memoiza a derivação.
+**O tema alcança o relevo.** As cores das sombras vivem em variáveis CSS
+redefinidas em `.dark`, então trocar de tema muda também o relevo dos cards, e
+não só fundo e texto — um `box-shadow` de valor arbitrário não é alcançável
+por variante `dark:`.
 
-**Relevo em variáveis CSS.** As sombras são valores arbitrários com cor fixa,
-que nenhuma variante `dark:` alcançaria de forma legível. Mantendo as cores
-em variáveis redefinidas em `.dark`, a troca de tema atinge também o relevo,
-e não só fundo e texto.
-
-**Largura de conteúdo compartilhada.** `--content-max` é usada pela linha de
-campos, pela tabela e pelo painel. A linha é uma grade `1fr auto 1fr`, então
-ocupa a largura definida em vez de deduzi-la da soma dos filhos, que é como
-os dois blocos tinham divergido em 30px.
+**Largura de conteúdo compartilhada.** `--content-max` define a largura e é
+usada pela linha de campos, pela tabela e pelo painel. A linha é uma grade
+`1fr auto 1fr`, então ocupa essa largura em vez de deduzi-la da soma dos
+filhos.
 
 **Ícones de duas fontes.** [Lucide](https://lucide.dev/) para interface e
 [Simple Icons](https://simpleicons.org/) para as marcas, porque o Lucide 1.x
@@ -116,11 +113,10 @@ onde os testes se concentram. Rodam em ambiente node, sem DOM.
 bun test
 ```
 
-Há um bloco de regressão com os quatro defeitos que a conversão já teve. A
-suíte foi conferida contra a implementação antiga com `parseInt`: os testes
-que deveriam pegar cada caso falham, o que mostra que não são testes vazios.
-O round-trip usa gerador com semente fixa, não `Math.random`, para uma falha
-continuar reproduzível.
+Os casos-limite estão fixados: dígito fora do alfabeto no modo binário,
+valores acima de `Number.MAX_SAFE_INTEGER`, entradas muito longas, entrada
+vazia e zeros à esquerda. O round-trip usa gerador com semente fixa, e não
+`Math.random`, para que uma falha continue reproduzível na execução seguinte.
 
 ## Estrutura
 
