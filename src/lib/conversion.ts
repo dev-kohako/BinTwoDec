@@ -25,9 +25,14 @@ export function convert(value: string, mode: Mode): string {
   if (value === "") return "";
 
   try {
-    return mode === "binary"
-      ? BigInt(`0b${value}`).toString(10)
-      : BigInt(value).toString(2);
+    const parsed = mode === "binary" ? BigInt(`0b${value}`) : BigInt(value);
+
+    // O domínio aqui é número natural. O sinal não chega pela UI, que barra
+    // "-" na validação, mas convert é exportado e devolver "-1" como binário
+    // seria resultado sem significado. Encontrado pela suíte de testes.
+    if (parsed < 0n) return "Inválido";
+
+    return mode === "binary" ? parsed.toString(10) : parsed.toString(2);
   } catch {
     return "Inválido";
   }
