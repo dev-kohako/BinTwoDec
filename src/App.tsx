@@ -87,7 +87,10 @@ function App() {
       <main className="flex min-h-screen w-full flex-col items-center justify-center gap-y-10 bg-zinc-200 px-4 pt-20 pb-28 transition-colors duration-300 sm:px-6 md:pb-24 lg:px-8 dark:bg-zinc-900 dark:text-zinc-100">
         <h1 className="sr-only">Conversor de binário e decimal</h1>
 
-        <div className="flex w-full flex-col items-center justify-center gap-5 md:flex-row">
+        {/* Grade em vez de flex: as duas colunas 1fr dividem o que sobra
+            depois do botão, então a linha ocupa exatamente --content-max, a
+            mesma largura da tabela, em vez de resultar da soma dos filhos. */}
+        <div className="grid w-full max-w-[var(--content-max)] grid-cols-1 justify-items-center gap-5 md:grid-cols-[1fr_auto_1fr] md:items-center">
           <ConverterCard
             id="source-value"
             label={sourceLabel}

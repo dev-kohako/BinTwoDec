@@ -1,3 +1,5 @@
+import { useTilt } from "../hooks/use-tilt";
+
 const CONVERSIONS = [
   { id: 1, binary: "1010", decimal: 10 },
   { id: 2, binary: "1101", decimal: 13 },
@@ -7,8 +9,20 @@ const CONVERSIONS = [
 ];
 
 export const Table = () => {
+  // Ângulo menor que o dos cards e sem elevar o conteúdo: numa grade de dados
+  // a inclinação é acento, não protagonista, e o filho aqui é o container de
+  // rolagem, que não convém transformar.
+  const { ref, onPointerMove, onPointerLeave } = useTilt<HTMLDivElement>({
+    maxDeg: 3,
+  });
+
   return (
-    <div className="w-full max-w-[585px] overflow-hidden rounded-xl shadow-[var(--card-shadow)] transition-shadow duration-300">
+    <div
+      ref={ref}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      className="card-3d w-full max-w-[var(--content-max)] overflow-hidden rounded-xl shadow-[var(--card-shadow)] [--card-lift:0px]"
+    >
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-sm font-light text-zinc-800 transition-colors duration-300 dark:text-zinc-200">
           <caption className="sr-only">

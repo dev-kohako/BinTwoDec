@@ -22,19 +22,27 @@
 :root {
   color-scheme: light;
 
+  /* Largura de conteúdo compartilhada. A linha de campos e a tabela usavam
+     números independentes, e a linha acabava 30px mais larga porque sua
+     largura vinha da soma dos filhos. Com a mesma variável nos dois, as
+     bordas não podem mais divergir. */
+  --content-max: 620px;
+
   /* No claro o relevo dependia de #ffffff sobre um fundo #e4e4e7, diferença
      de luminância pequena demais para desenhar uma aresta. O que resolve não
      é escurecer a sombra difusa, é dar contorno: --card-ring traça uma
      hairline e --card-contact uma sombra curta logo abaixo da borda. No
      escuro o mesmo par existe com sinal invertido. */
-  --neu-dark: rgba(113, 113, 122, 0.5);
+  --neu-dark: rgba(82, 82, 91, 0.45);
   --neu-light: #ffffff;
-  --card-ring: rgba(24, 24, 27, 0.12);
-  --card-edge-top: rgba(255, 255, 255, 0.9);
-  --card-edge-bottom: rgba(24, 24, 27, 0.07);
-  --card-contact: rgba(24, 24, 27, 0.16);
+  --card-ring: rgba(24, 24, 27, 0.18);
+  --card-edge-top: rgba(255, 255, 255, 0.95);
+  --card-edge-bottom: rgba(24, 24, 27, 0.1);
+  --card-contact: rgba(24, 24, 27, 0.22);
   --card-glare: rgba(255, 255, 255, 0.55);
 
+  /* A geometria é comum aos dois temas; só as cores mudam. Assim reforçar o
+     claro não mexe no escuro, que já estava bom. */
   --card-shadow:
     inset 0 0 0 1px var(--card-ring),
     inset 0 1px 0 var(--card-edge-top),
@@ -70,6 +78,7 @@
     --glare-x: 50%;
     --glare-y: 50%;
     --glare-opacity: 0;
+    --card-lift: 0.75rem;
 
     transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
     transform-style: preserve-3d;
@@ -96,9 +105,11 @@
 
   /* O conteudo flutua sobre a face do card. O deslocamento e pequeno de
      proposito: com perspective de 900px, 12px ja da o paralaxe sem
-     ampliar o texto o suficiente para borrar. */
+     ampliar o texto o suficiente para borrar. Fica em variavel porque a
+     tabela zera o valor: o filho dela e um container de rolagem, e nao
+     convem transformar nem ampliar o texto de uma grade de dados. */
   .card-3d > * {
-    transform: translateZ(0.75rem);
+    transform: translateZ(var(--card-lift));
   }
 
   /* Em toque nao existe ponteiro para acompanhar; fica so o volume fixo. */

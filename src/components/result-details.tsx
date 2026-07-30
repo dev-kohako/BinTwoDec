@@ -27,7 +27,7 @@ export const ResultDetails = ({
   const unit = resultIsBinary ? "bits" : "dígitos";
 
   return (
-    <section className="w-full max-w-[585px]">
+    <section className="w-full max-w-[var(--content-max)]">
       <button
         type="button"
         onClick={onToggle}
