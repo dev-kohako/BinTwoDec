@@ -4,7 +4,7 @@
 
 # Bin2Dec
 
-**Conversor binário ↔ decimal sem limite de precisão.**
+**Binário ↔ decimal. Sem limite de tamanho, sem arredondar.**
 
 [![React](https://img.shields.io/badge/React-19-087EA4?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
 [![React Compiler](https://img.shields.io/badge/React_Compiler-1.0-087EA4?style=flat-square)](https://react.dev/learn/react-compiler)
@@ -19,20 +19,25 @@
 
 ---
 
-## O que é
+## Em resumo
 
-Converte números entre base 2 e base 10 nos dois sentidos, com validação de
-entrada dependente do modo e precisão arbitrária: `1111111111111111111111111111111111111111111111111111111111111111`
-devolve `18446744073709551615`, exato, e não um arredondamento.
+Você digita um número, ele devolve na outra base. Decimal → binário, binário →
+decimal, e o campo só aceita o que faz sentido no modo em que está — nada de
+deixar você digitar `7` no binário e fingir que deu certo.
 
-Quando o resultado não cabe no campo, um painel mostra o número inteiro
-agrupado e a expansão em potências de 2 que chega até ele.
+A parte de que eu não quis abrir mão: **não tem teto**. Cola um número de 300
+dígitos e a resposta sai cravada, sem arredondamento simpático no meio. E se o
+resultado não couber no campo, abre um painel com o número inteiro agrupado e a
+soma de potências de 2 que chega até ele.
 
-## Interface
+A interface é toda em português, de propósito.
 
-Tema claro e escuro, escolha persistida e aplicada antes do primeiro paint.
-Cards com relevo e inclinação seguindo o cursor, desligada em toque e sob
-`prefers-reduced-motion`.
+## O visual
+
+Tema claro e escuro, com a sua escolha guardada e aplicada antes do primeiro
+paint — sem aquele flash branco na hora de carregar. Os cards têm relevo de
+verdade e inclinam acompanhando o cursor; no toque isso não faz sentido, então
+some, e quem pediu `prefers-reduced-motion` não vê nada se mexendo.
 
 <!-- Para exibir as capturas, coloque os dois arquivos em public/ e troque
      este comentário pelo bloco abaixo:
@@ -42,34 +47,31 @@ Cards com relevo e inclinação seguindo o cursor, desligada em toque e sob
 | <img src="./public/screenshot-light.png" alt="Tema claro" /> | <img src="./public/screenshot-dark.png" alt="Tema escuro" /> |
 -->
 
-## Como foi construído
+## Por dentro
 
-**Precisão com `BigInt`.** Toda conversão passa por `BigInt`, então não existe
-teto de tamanho nem arredondamento: 64 bits ligados devolvem
-`18446744073709551615` exato. A validação da entrada acompanha o modo, então
-o modo binário aceita apenas `0` e `1`.
+Quatro escolhas que eu faria de novo.
 
-**Resultado derivado, não estado.** O valor convertido é calculado no render a
-partir da entrada e do modo, sem `useState` nem `useEffect` próprios. Um
-estado a menos para manter em sincronia, e o React Compiler memoiza a
-derivação.
+**`BigInt` do começo ao fim.** É o que garante que 64 bits ligados voltem
+`18446744073709551615` cravado. Com número comum, os últimos dígitos viram
+enfeite. A validação da entrada acompanha o modo, então binário aceita `0` e
+`1` e mais nada.
 
-**O tema alcança o relevo.** As cores das sombras vivem em variáveis CSS
-redefinidas em `.dark`, então trocar de tema muda também o relevo dos cards, e
-não só fundo e texto — um `box-shadow` de valor arbitrário não é alcançável
-por variante `dark:`.
+**O resultado é derivado, não é estado.** Ele sai de uma conta no render, a
+partir da entrada e do modo. Sem `useState`, sem `useEffect`. Um estado a menos
+para manter sincronizado é um bug a menos para caçar depois — e o React
+Compiler memoiza a conta sozinho.
 
-**Largura de conteúdo compartilhada.** `--content-max` define a largura e é
-usada pela linha de campos, pela tabela e pelo painel. A linha é uma grade
-`1fr auto 1fr`, então ocupa essa largura em vez de deduzi-la da soma dos
-filhos.
+**O tema alcança o relevo.** Trocar de tema aqui não muda só fundo e texto: as
+cores das sombras moram em variáveis CSS redefinidas em `.dark`, então o relevo
+dos cards troca junto. Um `box-shadow` de valor arbitrário nenhuma variante
+`dark:` consegue alcançar.
 
-**Ícones de duas fontes.** [Lucide](https://lucide.dev/) para interface e
-[Simple Icons](https://simpleicons.org/) para as marcas, porque o Lucide 1.x
-removeu todos os ícones de marca. A LinkedIn é desenhada à mão: o Simple
-Icons a removeu por pedido de titular.
+**Uma largura, três blocos.** `--content-max` manda na linha de campos, na
+tabela e no painel. A linha é uma grade `1fr auto 1fr`, então ela ocupa essa
+largura em vez de deduzir da soma dos filhos — que é como as bordas de dois
+blocos deixam de bater sem ninguém perceber.
 
-## Stack
+## Com o que foi feito
 
 | | | |
 |---|---|---|
@@ -81,7 +83,7 @@ Icons a removeu por pedido de titular.
 | [Vitest](https://vitest.dev/) | 4.1 | Testes |
 | [Bun](https://bun.sh/) | 1.2 | Gerenciador de pacotes |
 
-## Rodando
+## Rodando na sua máquina
 
 ```bash
 git clone https://github.com/dev-kohako/BinTwoDec.git
@@ -90,8 +92,8 @@ bun install
 bun dev
 ```
 
-Disponível em `http://localhost:5173`. Funciona igual com `npm`, mas o
-lockfile versionado é o do Bun.
+Abre em `http://localhost:5173`. Funciona igual com `npm` — só saiba que o
+lockfile versionado aqui é o do Bun.
 
 ## Scripts
 
@@ -100,25 +102,27 @@ lockfile versionado é o do Bun.
 | `bun dev` | Dev server com HMR |
 | `bun run build` | Type check e build de produção em `dist/` |
 | `bun run preview` | Serve o build localmente |
-| `bun run lint` | ESLint, incluindo as regras do React Compiler |
-| `bun test` | Suíte de testes |
+| `bun run lint` | ESLint, com as regras do React Compiler |
+| `bun test` | Roda os testes |
 | `bun run test:watch` | Testes em modo watch |
 
 ## Testes
 
-A lógica de conversão vive isolada em `src/lib/conversion.ts`, sem React, e é
-onde os testes se concentram. Rodam em ambiente node, sem DOM.
+A conta de conversão mora sozinha em `src/lib/conversion.ts`, sem React
+nenhum, e é ali que os testes batem. Rodam em node, sem DOM, e terminam antes
+de você tirar a mão do teclado.
 
 ```bash
 bun test
 ```
 
-Os casos-limite estão fixados: dígito fora do alfabeto no modo binário,
-valores acima de `Number.MAX_SAFE_INTEGER`, entradas muito longas, entrada
-vazia e zeros à esquerda. O round-trip usa gerador com semente fixa, e não
-`Math.random`, para que uma falha continue reproduzível na execução seguinte.
+O que está fixado são os cantos onde esse tipo de código costuma escorregar:
+dígito fora do alfabeto no modo binário, valores acima de
+`Number.MAX_SAFE_INTEGER`, entrada gigante, entrada vazia e zeros à esquerda. O
+round-trip usa gerador com semente fixa em vez de `Math.random`, senão uma
+falha aparece hoje e desaparece amanhã.
 
-## Estrutura
+## Onde fica o quê
 
 ```
 src/
@@ -131,13 +135,17 @@ src/
 └── index.css       tema, variáveis de relevo e a classe .card-3d
 ```
 
+Se você veio pelo código e quer ver só uma coisa, veja
+[`src/lib/conversion.ts`](src/lib/conversion.ts). É o coração e não passa de
+cem linhas.
+
 O Tailwind 4 dispensa `tailwind.config`: tema e variantes ficam em
-`src/index.css`, via `@theme` e `@custom-variant`.
+`src/index.css`, com `@theme` e `@custom-variant`.
 
 ## Deploy
 
-Publicado na [Vercel](https://bin-two-dec.vercel.app/), com build automático
-a cada push na `main`.
+Está na [Vercel](https://bin-two-dec.vercel.app/), rebuildando a cada push na
+`main`.
 
 | | |
 |---|---|
@@ -147,10 +155,14 @@ a cada push na `main`.
 
 ## Licença
 
-[MIT](LICENSE).
+[MIT](LICENSE) — pega, usa, modifica. Se te ajudou, me conta.
 
-## Autor
+## Quem fez
 
-**Joseph Kawe** — [GitHub](https://github.com/dev-kohako) ·
+**Joseph Kawe**, sob a marca KWK.
+
+[GitHub](https://github.com/dev-kohako) ·
 [LinkedIn](https://www.linkedin.com/in/josephkawe/) ·
+[Instagram](https://www.instagram.com/kohako.dev/) ·
+[YouTube](https://www.youtube.com/@dev_kohako) ·
 [Bento](https://bento.me/kohako)
