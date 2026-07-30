@@ -99,10 +99,13 @@ function App() {
             placeholder={mode === "binary" ? "Ex.: 1010" : "Ex.: 10"}
           />
 
+          {/* Mesma superfície e mesma borda dos campos: o botão integra ao
+              conjunto em vez de inverter as cores, e o acento fica na borda de
+              tinta cheia, que é o que ainda o lê como ação. */}
           <button
             type="button"
             onClick={toggleMode}
-            className="flex items-center gap-x-1.5 rounded-xl border-2 border-zinc-200 bg-zinc-900 px-2.5 py-1.5 text-zinc-200 transition-colors duration-300 hover:bg-zinc-800 active:bg-zinc-700 dark:border-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:active:bg-zinc-400"
+            className="flex items-center gap-x-1.5 rounded-xl border border-zinc-900 bg-[var(--card-surface)] px-3 py-2 font-bold shadow-[var(--control-shadow)] transition-colors duration-300 hover:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 active:bg-zinc-300 dark:border-zinc-100 dark:hover:bg-zinc-800 dark:focus-visible:outline-zinc-100 dark:active:bg-zinc-700"
           >
             {/* Em coluna os cards ficam um sobre o outro, então a seta aponta
                 na direção que a troca realmente acontece. */}
