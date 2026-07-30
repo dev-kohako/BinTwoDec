@@ -33,12 +33,18 @@
      é escurecer a sombra difusa, é dar contorno: --card-ring traça uma
      hairline e --card-contact uma sombra curta logo abaixo da borda. No
      escuro o mesmo par existe com sinal invertido. */
+  /* A superfície elevada era a mesma cor da página, e um brilho branco por
+     cima disso não tinha para onde clarear: por isso não aparecia. Agora o
+     card é mais claro que a tela de fundo, que é o que separa os dois, e o
+     brilho branco sai de cena no claro. No escuro ele continua fazendo
+     efeito, porque lá há espaço de luminância acima do fundo. */
+  --card-surface: #fafafa;
   --neu-dark: rgba(82, 82, 91, 0.45);
-  --neu-light: #ffffff;
-  --card-ring: rgba(24, 24, 27, 0.18);
+  --neu-light: transparent;
+  --card-ring: rgba(24, 24, 27, 0.24);
   --card-edge-top: rgba(255, 255, 255, 0.95);
   --card-edge-bottom: rgba(24, 24, 27, 0.1);
-  --card-contact: rgba(24, 24, 27, 0.22);
+  --card-contact: rgba(24, 24, 27, 0.28);
   --card-glare: rgba(255, 255, 255, 0.55);
 
   /* A geometria é comum aos dois temas; só as cores mudam. Assim reforçar o
@@ -56,6 +62,7 @@
 .dark {
   color-scheme: dark;
 
+  --card-surface: #18181b;
   --neu-dark: #09090b;
   --neu-light: #303038;
   --card-ring: rgba(255, 255, 255, 0.07);

@@ -49,7 +49,7 @@ export const ResultDetails = ({
         className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out data-[open=true]:grid-rows-[1fr]"
       >
         <div className="overflow-hidden">
-          <div className="mt-3 flex flex-col gap-y-4 rounded-xl bg-zinc-200 p-4 text-sm shadow-[var(--card-shadow)] transition-[background-color,box-shadow] duration-300 dark:bg-zinc-900">
+          <div className="mt-3 flex flex-col gap-y-4 rounded-xl bg-[var(--card-surface)] p-4 text-sm shadow-[var(--card-shadow)] transition-[background-color,box-shadow] duration-300">
             <div>
               <h2 className="font-medium">
                 {label} completo · {result.length} {unit}

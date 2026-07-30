@@ -30,7 +30,7 @@ export const ConverterCard = ({
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="card-3d flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-zinc-200 px-4 shadow-[var(--card-shadow)] md:max-w-none dark:bg-zinc-900"
+      className="card-3d flex min-h-[7.5rem] w-full max-w-[15rem] flex-col items-center justify-center gap-y-1 rounded-xl bg-[var(--card-surface)] px-4 shadow-[var(--card-shadow)] md:max-w-none"
       aria-live={live ? "polite" : undefined}
     >
       <label htmlFor={id} className="text-lg font-medium">

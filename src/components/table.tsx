@@ -21,7 +21,7 @@ export const Table = () => {
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="card-3d w-full max-w-[var(--content-max)] overflow-hidden rounded-xl shadow-[var(--card-shadow)] [--card-lift:0px]"
+      className="card-3d w-full max-w-[var(--content-max)] overflow-hidden rounded-xl bg-[var(--card-surface)] shadow-[var(--card-shadow)] [--card-lift:0px]"
     >
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-sm font-light text-zinc-800 transition-colors duration-300 dark:text-zinc-200">
