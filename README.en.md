@@ -43,30 +43,26 @@ with layered depth and pointer-tracking tilt, disabled on touch and under
 | <img src="./public/screenshot-light.png" alt="Light theme" /> | <img src="./public/screenshot-dark.png" alt="Dark theme" /> |
 -->
 
-## Design decisions
+## How it is built
 
-What sets this apart from a converter written in a hurry.
-
-**`BigInt` instead of `parseInt`.** `parseInt(v, 2)` stops at the first digit
-outside the alphabet and returns what it read so far: `"19"` became `1`, a
-wrong answer with no warning. Past `Number.MAX_SAFE_INTEGER` the conversion
-lost precision, and long inputs became the string `"Infinity"`, because
-`isNaN(Infinity)` is `false`. All four cases are pinned by tests.
+**Precision through `BigInt`.** Every conversion goes through `BigInt`, so
+there is no size ceiling and no rounding: 64 set bits return
+`18446744073709551615` exactly. Input validation follows the mode, so binary
+mode accepts only `0` and `1`.
 
 **Derived result, not state.** The converted value is computed during render
-from the input and the mode. There is no `useState` or `useEffect` for it,
-which structurally removes both the effect that ignored mode changes and the
-one-frame stale result. React Compiler memoizes the derivation.
+from the input and the mode, with no `useState` or `useEffect` of its own. One
+less piece of state to keep in sync, and React Compiler memoizes the
+derivation.
 
-**Depth in CSS variables.** The shadows are arbitrary values with hardcoded
-colors, which no `dark:` variant could reach legibly. Keeping the colors in
-variables redefined under `.dark` means switching themes also switches the
-depth, not just background and text.
+**The theme reaches the depth.** Shadow colors live in CSS variables redefined
+under `.dark`, so switching themes also switches the card depth, not just
+background and text — an arbitrary `box-shadow` value is not reachable by a
+`dark:` variant.
 
-**Shared content width.** `--content-max` is used by the field row, the table
-and the panel. The row is a `1fr auto 1fr` grid, so it occupies the defined
-width instead of deriving it from the sum of its children — which is how the
-two blocks had drifted 30px apart.
+**Shared content width.** `--content-max` defines the width and is used by the
+field row, the table and the panel. The row is a `1fr auto 1fr` grid, so it
+occupies that width instead of deriving it from the sum of its children.
 
 **Icons from two sources.** [Lucide](https://lucide.dev/) for UI and
 [Simple Icons](https://simpleicons.org/) for brands, because Lucide 1.x
@@ -117,11 +113,10 @@ and that is where the tests focus. They run in a node environment, no DOM.
 bun test
 ```
 
-There is a regression block covering the four defects the conversion once
-had. The suite was checked against the old `parseInt` implementation: the
-tests meant to catch each case do fail, which proves they are not vacuous.
-The round-trip uses a fixed-seed generator rather than `Math.random`, so a
-failure stays reproducible.
+The edge cases are pinned: digits outside the alphabet in binary mode, values
+past `Number.MAX_SAFE_INTEGER`, very long inputs, empty input and leading
+zeros. The round-trip uses a fixed-seed generator rather than `Math.random`,
+so a failure stays reproducible on the next run.
 
 ## Structure
 
